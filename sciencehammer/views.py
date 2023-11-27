@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpRequest
 
 from .application.entity import entity
 from .application.graph import graph
@@ -23,7 +23,8 @@ def relation_page(request):
 
 
 def graph_query(request):
-    if request.is_ajax() and request.method == "POST":
+    # if request.is_ajax() and request.method == "POST":
+    if  request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
         # Tokenize
         source = request.POST['source']
         jtoken = source
@@ -36,7 +37,8 @@ def graph_query(request):
 
 
 def entity_query(request):
-    if request.is_ajax() and request.method == "POST":
+    # if request.is_ajax() and request.method == "POST":
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
         source = request.POST['source']
 
         # Query
@@ -47,7 +49,8 @@ def entity_query(request):
 
 
 def relation_query(request):
-    if request.is_ajax() and request.method == "POST":
+    # print(request.headers.get('x-requested-with') == 'XMLHttpRequest')
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
         source = request.POST['source']
 
         # Query

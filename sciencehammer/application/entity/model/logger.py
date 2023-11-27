@@ -20,7 +20,7 @@ class Logger:
         self._logger = logging.getLogger()
         self._reset_logger()
 
-        self._timestamp = str(datetime.datetime.now()).replace(' ', '_')
+        self._timestamp = str(datetime.datetime.now()).replace(' ', '_').replace(':','_')
         self._log_path = os.path.join(
             self._cfg.get('logging', 'log_path'), self._label, self._timestamp)
         util.create_directory(self._log_path)
